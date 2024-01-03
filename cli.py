@@ -1,7 +1,7 @@
 import re
 import api
 
-options = ("exit", "related artists by artist", "related artists by artists")
+options = ("similar artists by artist", "similar artists by artists", "exit")
 
 def prompt_user() -> tuple[str]:
     print("Please choose an option:")
@@ -16,16 +16,16 @@ def prompt_user() -> tuple[str]:
             case "exit":
                 return ("exit",)
 
-            case "related artists by artist":
+            case "similar artists by artist":
                 print("Enter an artist name:")
                 name = input()
                 if name == "":
                     print("Invalid name ''")
                     return prompt_user()
                 name = api.artist_id(name)
-                return ("related_artists_by_artist", name)
+                return ("similar_artists_by_artist", name)
 
-            case "related artists by artists":
+            case "similar artists by artists":
                 print("Enter artist names, seperated by ','")
                 names = input()
                 seperated = [x.strip() for x in names.split(',')]
@@ -33,4 +33,4 @@ def prompt_user() -> tuple[str]:
                     print("Invalid name list '" + names + "'")
                     return prompt_user()
                 names = sorted([api.artist_id(name) for name in seperated])
-                return ("related_artists_by_artists", names)
+                return ("similar_artists_by_artists", names)

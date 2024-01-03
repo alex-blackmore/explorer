@@ -17,7 +17,7 @@ def get_access_token(client_id: str, client_secret: str) -> str:
     data = {"grant_type": "client_credentials"}
     encoded_details = b64encode(bytes(client_id + ":" + client_secret, encoding="utf-8")).decode("ascii")
     headers = {"Authorization": "Basic " + encoded_details, "Content-Type": "application/x-www-form-urlencoded"}
-
+    
     response = requests.post(ACCESS_URL + ACCESS_TOKEN, data, headers=headers)
     return response.json()['access_token']
 
@@ -39,7 +39,7 @@ def artist_info(id: str) -> dict:
     return response.json()
 
 @cache
-def related_artists_by_artist(id: str, output: bool) -> dict:
+def similar_artists_by_artist(id: str, output: bool) -> dict:
     results = artist_info(id)
     
     if output:
@@ -57,18 +57,18 @@ def related_artists_by_artist(id: str, output: bool) -> dict:
     return results
 
 @cache
-def related_artists_by_artists(ids: str, output: bool) -> None:
+def similar_artists_by_artists(ids: str, output: bool) -> None:
     results = {}
 
     for id in ids:
-        for entry in related_artists_by_artist(id, output=False):
+        for entry in similar_artists_by_artist(id, output=False):
             if entry["name"] in results:
                 results[entry["name"]] += 1
             else:
                 results[entry["name"]] = 1
 
     if output:
-        print("Artists related to ", end="")
+        print("Artists similar to ", end="")
         print(", ".join([artist_info(id)["name"] for id in ids]) + ":")
 
         for artist in sorted(results, key=lambda x : results[x], reverse=True):

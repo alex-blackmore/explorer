@@ -20,7 +20,7 @@ if __name__ == "__main__":
         match action[0]:
             case "exit":
                 sys.exit(0)
-            case "related_artists_by_artist":
-                api.related_artists_by_artist(*args, output=True)
-            case "related_artists_by_artists":
-                api.related_artists_by_artists(*args, output=True)
+            case "similar_artists_by_artist":
+                api.similar_artists_by_artist(*args, output=True)
+            case "similar_artists_by_artists":
+                api.similar_artists_by_artists(*args, output=True)
