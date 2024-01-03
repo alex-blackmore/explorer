@@ -4,7 +4,7 @@ import api
 options = ("exit", "related artists by artist", "related artists by artists")
 
 def prompt_user() -> tuple[str]:
-    print("Please choose an option")
+    print("Please choose an option:")
     for number, option in enumerate(options):
         print(number, option)
     chosen = input().strip()
@@ -15,6 +15,7 @@ def prompt_user() -> tuple[str]:
         match options[int(chosen)]:
             case "exit":
                 return ("exit",)
+
             case "related artists by artist":
                 print("Enter an artist name:")
                 name = input()
@@ -23,6 +24,7 @@ def prompt_user() -> tuple[str]:
                     return prompt_user()
                 name = api.artist_id(name)
                 return ("related_artists_by_artist", name)
+
             case "related artists by artists":
                 print("Enter artist names, seperated by ','")
                 names = input()
