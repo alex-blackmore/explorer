@@ -1,6 +1,6 @@
 import re
 
-options = ("related artists by artist",)
+options = ("exit", "related artists by artist")
 
 def prompt_user():
     print("Please choose an option")
@@ -12,6 +12,8 @@ def prompt_user():
         return prompt_user()
     else:
         match options[int(chosen)]:
+            case "exit":
+                exit()
             case "related artists by artist":
                 print("Enter an artist name")
                 name = input()
