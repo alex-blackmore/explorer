@@ -2,7 +2,7 @@ import re
 
 options = ("exit", "related artists by artist")
 
-def prompt_user():
+def prompt_user() -> tuple[str]:
     print("Please choose an option")
     for number, option in enumerate(options):
         print(number, option)
@@ -13,8 +13,8 @@ def prompt_user():
     else:
         match options[int(chosen)]:
             case "exit":
-                exit()
+                return ("exit",)
             case "related artists by artist":
-                print("Enter an artist name")
+                print("Enter an artist name:")
                 name = input()
                 return ("related_artists_by_artist", name)
