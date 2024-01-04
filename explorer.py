@@ -24,3 +24,9 @@ if __name__ == "__main__":
                 api.similar_artists_by_artist(*args, output=True)
             case "similar_artists_by_artists":
                 api.similar_artists_by_artists(*args, output=True)
+            case "similar_songs_by_artists_songs_genres":
+                api.similar_songs_by_artists_songs_genres(*args, output=True)
+            case "query_artist_genres":
+                api.query_artist_genres(*args)
+            case "list_genres":
+                api.list_genres(output=True)

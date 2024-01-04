@@ -14,3 +14,6 @@ def cache(function):
         return result
 
     return wrapper
+
+def print_seperator():
+    print('-' * 100)
