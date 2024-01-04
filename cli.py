@@ -27,53 +27,53 @@ def prompt_user() -> tuple[str]:
                 return ("similar_artists_by_artist", name)
 
             case "similar artists by artists":
-                print("Enter artist names, seperated by ',':")
+                print("Enter artist names, separated by ',':")
                 names = input()
-                seperated = [x.strip() for x in names.split(',')]
-                if any([x == "" for x in seperated]):
+                separated = [x.strip() for x in names.split(',')]
+                if any([x == "" for x in separated]):
                     print("Invalid name list '" + names + "'")
                     return prompt_user()
-                names = sorted([api.artist_id(name) for name in seperated])
+                names = sorted([api.artist_id(name) for name in separated])
                 return ("similar_artists_by_artists", names)
             
             case "similar songs by artists, songs, genres":
                 remaining = api.MAX_RECOMMENDATIONS
-                print(f"Enter up to {remaining} artist names, seperated by ',':")
+                print(f"Enter up to {remaining} artist names, separated by ',':")
                 artists = input()
-                seperated = [x.strip() for x in artists.split(',')]
-                if any([x == "" for x in seperated]) and artists != "":
+                separated = [x.strip() for x in artists.split(',')]
+                if any([x == "" for x in separated]) and artists != "":
                     print("Invalid artist list '" + artists + "'")
                     return prompt_user()
-                artists = sorted([api.artist_id(name) for name in seperated]) if artists != "" else []
+                artists = sorted([api.artist_id(name) for name in separated]) if artists != "" else []
                 if len(artists) > remaining:
                     print("Too many artists entered")
                     return prompt_user()
                 remaining -= len(artists)
 
-                print(f"Enter up to {remaining} song names, seperated by ',':")
+                print(f"Enter up to {remaining} song names, separated by ',':")
                 songs = input()
-                seperated = [x.strip() for x in songs.split(',')]
-                if any([x == "" for x in seperated]) and songs != "":
+                separated = [x.strip() for x in songs.split(',')]
+                if any([x == "" for x in separated]) and songs != "":
                     print("Invalid song list '" + songs + "'")
                     return prompt_user()
-                songs = sorted([api.song_id(name) for name in seperated]) if songs != "" else []
+                songs = sorted([api.song_id(name) for name in separated]) if songs != "" else []
                 if len(songs) > remaining:
                     print("Too many songs entered")
                     return prompt_user()
                 remaining -= len(songs)
 
-                print(f"Enter up to {remaining} genres, seperated by ',':")
+                print(f"Enter up to {remaining} genres, separated by ',':")
                 genres = input()
-                seperated = [x.strip() for x in genres.split(',')]
-                if any([x == "" for x in seperated]) and genres != "":
+                separated = [x.strip() for x in genres.split(',')]
+                if any([x == "" for x in separated]) and genres != "":
                     print("Invalid genre list '" + genres + "'")
                     return prompt_user()
                 if genres != "":
-                    for genre in seperated:
+                    for genre in separated:
                         if api.genre_name(genre.lower()) == "unknown":
                             print(f"Unknown genre '{genre}'")
                             return prompt_user()
-                genres = sorted([api.genre_name(name.lower()) for name in seperated]) if genres != "" else []
+                genres = sorted([api.genre_name(name.lower()) for name in separated]) if genres != "" else []
                 if len(genres) > remaining:
                     print("Too many genres entered")
                     return prompt_user()

@@ -2,7 +2,7 @@ import requests
 import sys
 import info
 from base64 import b64encode
-from helpers import cache, print_seperator
+from helpers import cache, print_separator
 
 ACCESS_URL = "https://accounts.spotify.com/api"
 ACCESS_TOKEN = "/token"
@@ -73,7 +73,7 @@ def similar_artists_by_artist(id: str, output: bool) -> dict:
     results = artist_info(id)
     
     if output:
-        print_seperator()
+        print_separator()
         print("Artists similar to", results["name"] + ":")
     
     url = API_URL + API_RELATED_ARTISTS_1 + results["id"] + API_RELATED_ARTISTS_2
@@ -84,7 +84,7 @@ def similar_artists_by_artist(id: str, output: bool) -> dict:
     if output:
         for entry in results:
             print(entry["name"])
-        print_seperator()
+        print_separator()
 
     return results
 
@@ -100,31 +100,31 @@ def similar_artists_by_artists(ids: str, output: bool) -> None:
                 results[entry["name"]] = 1
 
     if output:
-        print_seperator()
+        print_separator()
         print("Artists similar to ", end="")
         print(", ".join([artist_info(id)["name"] for id in ids]) + ":")
 
         for artist in sorted(results, key=lambda x : results[x], reverse=True):
             print(results[artist], artist)
-        print_seperator()
+        print_separator()
     return results
 
 @cache
 def query_artist_genres(id: str) -> None:
-    print_seperator()
+    print_separator()
     for genre in artist_info(id)["genres"]:
         print(genre)
-    print_seperator()
+    print_separator()
 
 @cache
 def list_genres(output: bool) -> list[str]:
     response = requests.get(API_URL + API_GENRES, headers=info.headers)
     results = response.json()["genres"]
     if output:
-        print_seperator()
+        print_separator()
         for genre in results:
             print(genre)
-        print_seperator()
+        print_separator()
     return results
 
 @cache
@@ -139,9 +139,9 @@ def similar_songs_by_artists_songs_genres(artist_ids: tuple[str], song_ids: tupl
     response = requests.get(API_URL + API_RECOMMENDATIONS, params, headers=info.headers)
     results = response.json()["tracks"]
     if output:
-        print_seperator()
+        print_separator()
         print("Similar songs:")
         for song in results:
             print(song["name"], "by", ", ".join([artist["name"] for artist in song["artists"]]))
-        print_seperator()
+        print_separator()
     return results
